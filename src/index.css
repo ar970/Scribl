@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-lexend: "Lexend", sans-serif;
+  --font-comic: "Comic Neue", cursive;
+  --font-inter: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Custom styles for dyslexia readability overlays */
+.overlay-cream {
+  background-color: #fcf8f2;
+}
+.overlay-yellow {
+  background-color: #fefbeb;
+}
+.overlay-peach {
+  background-color: #fff5eb;
+}
+.overlay-mint {
+  background-color: #f0fdf4;
+}
+.overlay-blue {
+  background-color: #f0f9ff;
+}
+.overlay-charcoal {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+/* Base style extensions */
+body {
+  font-family: var(--font-inter);
+  background-color: #f8fafc;
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+/* Reading Ruler effects */
+.reading-ruler {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: multiply;
+  transition: top 0.05s ease-out, height 0.1s ease;
+}
+
+.dark .reading-ruler {
+  mix-blend-mode: screen;
+}
+
+/* Highlight style for currently spoken word in TTS */
+.word-highlight {
+  background-color: #fef08a; /* soft yellow */
+  color: #000000;
+  border-radius: 0.125rem;
+  padding: 0 0.125rem;
+  box-shadow: 0 0 4px #fef08a;
+  transform: scale(1.05);
+  display: inline-block;
+  transition: all 0.1s ease;
+}
+
+/* Dyslexia Bottom-Heavy shadow simulation */
+.dyslexia-heavy-bottom {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 2px rgba(0, 0, 0, 0.1);
+}

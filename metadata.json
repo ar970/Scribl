@@ -1,0 +1,6 @@
+{
+  "name": "Scribl",
+  "description": "A dyslexia screening and reading-assistance tool for children aged 6–14, used in Indian schools.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
