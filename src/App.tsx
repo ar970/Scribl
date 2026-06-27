@@ -135,7 +135,7 @@ export default function App() {
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              Screener
+              Play Games 🎮
             </button>
             <button
               id="nav-reader-tab"
@@ -218,7 +218,7 @@ export default function App() {
                     </h2>
                     <p className="text-xs text-slate-400">
                       {hasTakenTest 
-                        ? `Custom settings applied based on screening score: ${screenerScore}/24.` 
+                        ? `Custom settings applied based on your game profile score: ${screenerScore}/100.` 
                         : "You can adjust the fonts, letter spacings, and overlays below to optimize text clarity."}
                     </p>
                   </div>
@@ -228,7 +228,7 @@ export default function App() {
                       onClick={navigateToScreener}
                       className="inline-flex items-center gap-1 px-3 py-1.5 border border-teal-200 hover:border-teal-300 text-teal-700 bg-teal-50/50 rounded-lg text-xs font-bold transition cursor-pointer self-start sm:self-auto"
                     >
-                      Take Screener Test First
+                      Play Reading Games First 🎮
                     </button>
                   )}
                 </div>
