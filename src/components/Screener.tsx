@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import confetti from 'canvas-confetti';
 import { 
   Play, 
   Pause, 
@@ -882,6 +883,49 @@ export default function Screener({
     }
   }, [step, activeGame, activeRound]);
 
+  // Trigger celebratory confetti animation only after finishing all games
+  useEffect(() => {
+    if (step === 'result') {
+      // First general center-burst of confetti
+      confetti({
+        particleCount: 140,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#2dd4bf', '#10b981', '#6366f1', '#f59e0b', '#ec4899']
+      });
+
+      // Side bursts for extra delight!
+      const duration = 2 * 1000;
+      const end = Date.now() + duration;
+
+      const frame = () => {
+        confetti({
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.8 },
+          colors: ['#2dd4bf', '#10b981', '#6366f1', '#f59e0b', '#ec4899']
+        });
+        confetti({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.8 },
+          colors: ['#2dd4bf', '#10b981', '#6366f1', '#f59e0b', '#ec4899']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      };
+      
+      // Delay side bursts slightly so center-burst resolves beautifully
+      setTimeout(() => {
+        requestAnimationFrame(frame);
+      }, 350);
+    }
+  }, [step]);
+
   const triggerCelebration = (isCorrect: boolean, callback: () => void) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
@@ -1431,6 +1475,67 @@ export default function Screener({
                 <p className="text-[11px] text-slate-500 leading-relaxed font-lexend">
                   Scribl uses a cognitive multisensory framework to screen for letter spacing needs, sound processing (phonics), and comfortable visual reading speeds, automatically suggestions the best configurations.
                 </p>
+              </div>
+            </div>
+
+            {/* Revenue Model Section - Smoothly Attached */}
+            <div className="lg:col-span-12 mt-10 pt-10 border-t border-slate-100/80 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight font-lexend">
+                    Revenue Model
+                  </h3>
+                  <p className="text-slate-500 text-xs sm:text-sm font-lexend font-medium">
+                    Scribl's sustainable plan built to support schools and families across India.
+                  </p>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-100 rounded-full text-[11px] font-black self-start sm:self-auto uppercase tracking-wider">
+                  ✨ Simple Pricing
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Freemium Card */}
+                <div className="bg-white rounded-2xl border border-slate-200/60 border-l-4 border-l-teal-500 p-6 flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-lg font-black text-slate-800 font-lexend">
+                        Freemium
+                      </h4>
+                      <span className="text-[10px] font-black text-teal-700 bg-teal-50 border border-teal-100 px-2 py-0.5 rounded-md uppercase">
+                        Free Snapshot
+                      </span>
+                    </div>
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-lexend font-medium">
+                      Free diagnostic snapshot — shareable, designed to spread through parent communities
+                    </p>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-slate-50 flex items-center justify-between text-[11px] text-slate-400 font-lexend font-bold">
+                    <span>Diagnostic Test + Results</span>
+                    <span className="text-teal-600">Included 🎒</span>
+                  </div>
+                </div>
+
+                {/* Paid Card */}
+                <div className="bg-white rounded-2xl border border-slate-200/60 border-l-4 border-l-emerald-500 p-6 flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-lg font-black text-slate-800 font-lexend">
+                        Paid
+                      </h4>
+                      <span className="text-[10px] font-black text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-md uppercase">
+                        Subscription
+                      </span>
+                    </div>
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-lexend font-medium">
+                      ₹299–499/month subscription
+                    </p>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-slate-50 flex items-center justify-between text-[11px] text-slate-400 font-lexend font-bold">
+                    <span>Full Classroom Support & Personalized Settings</span>
+                    <span className="text-emerald-600">Access Tools 🚀</span>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>

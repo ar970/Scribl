@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/open-dyslexic');
 @import "tailwindcss";
 
 @theme {
@@ -6,6 +7,8 @@
   --font-comic: "Comic Neue", cursive;
   --font-inter: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+  --font-opendyslexic: "OpenDyslexic", sans-serif;
+  --font-atkinson: "Atkinson Hyperlegible", sans-serif;
 }
 
 /* Custom styles for dyslexia readability overlays */

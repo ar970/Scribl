@@ -23,7 +23,7 @@ export interface ReaderSettings {
   letterSpacing: 'normal' | 'wide' | 'extra' | 'double';
   wordSpacing: 'normal' | 'wide' | 'extra' | 'double';
   lineHeight: 'normal' | 'relaxed' | 'loose';
-  fontFamily: 'lexend' | 'comic' | 'inter' | 'mono';
+  fontFamily: 'lexend' | 'comic' | 'inter' | 'mono' | 'opendyslexic' | 'atkinson';
   theme: 'white' | 'cream' | 'yellow' | 'peach' | 'mint' | 'blue' | 'charcoal';
   overlayOpacity: number; // opacity of Irlen overlay, 0 to 0.4
   focusRuler: boolean;

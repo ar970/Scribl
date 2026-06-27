@@ -397,6 +397,8 @@ export default function Reader({ initialPresetId, screenerScore }: ReaderProps) 
       case 'comic': return 'font-comic';
       case 'inter': return 'font-inter';
       case 'mono': return 'font-mono';
+      case 'opendyslexic': return 'font-opendyslexic';
+      case 'atkinson': return 'font-atkinson';
     }
   };
 
@@ -663,6 +665,8 @@ export default function Reader({ initialPresetId, screenerScore }: ReaderProps) 
       setIsCustomMode(true);
     }
   };
+
+  const isDyslexicGroupActive = settings.fontFamily === 'opendyslexic' || settings.fontFamily === 'atkinson';
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-2 space-y-5">
@@ -1014,29 +1018,98 @@ export default function Reader({ initialPresetId, screenerScore }: ReaderProps) 
             </h3>
 
             {/* Typography Selection */}
-            <div className="space-y-2">
-              <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">Font Family</span>
-              <div className="grid grid-cols-2 gap-1.5">
-                {[
-                  { id: 'lexend', name: 'Lexend', cls: 'font-lexend' },
-                  { id: 'comic', name: 'Comic Rounded', cls: 'font-comic' },
-                  { id: 'inter', name: 'Inter Clean', cls: 'font-inter' },
-                  { id: 'mono', name: 'Mono Grid', cls: 'font-mono' }
-                ].map(f => (
-                  <button
-                    id={`font-family-${f.id}`}
-                    key={f.id}
-                    onClick={() => setSettings(p => ({ ...p, fontFamily: f.id as any }))}
-                    className={`py-1.5 px-2 border rounded-lg text-xs font-semibold transition cursor-pointer ${
-                      settings.fontFamily === f.id
-                        ? 'bg-teal-50/70 border-teal-500 text-teal-900 ring-1 ring-teal-500/10'
-                        : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    <span className={f.cls}>{f.name}</span>
-                  </button>
-                ))}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">Font Family</span>
               </div>
+              
+              {/* Specialized Font Toggle */}
+              <div className="bg-slate-100/80 p-1 rounded-xl grid grid-cols-2 text-center text-[11px] select-none">
+                <button
+                  type="button"
+                  id="font-group-standard"
+                  onClick={() => setSettings(p => ({ ...p, fontFamily: 'lexend' }))}
+                  className={`py-1.5 rounded-lg font-bold transition cursor-pointer ${
+                    !isDyslexicGroupActive 
+                      ? 'bg-white text-slate-800 shadow-xs border border-slate-200/40' 
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  Standard Fonts
+                </button>
+                <button
+                  type="button"
+                  id="font-group-dyslexic"
+                  onClick={() => setSettings(p => ({ ...p, fontFamily: 'opendyslexic' }))}
+                  className={`py-1.5 rounded-lg font-bold transition cursor-pointer flex items-center justify-center gap-1 ${
+                    isDyslexicGroupActive 
+                      ? 'bg-teal-600 text-white shadow-xs' 
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  <span>✨ Dyslexia-Friendly</span>
+                </button>
+              </div>
+
+              {/* Grid of fonts depending on mode */}
+              <div className="grid grid-cols-2 gap-1.5">
+                {!isDyslexicGroupActive ? (
+                  [
+                    { id: 'lexend', name: 'Lexend', cls: 'font-lexend' },
+                    { id: 'comic', name: 'Comic Rounded', cls: 'font-comic' },
+                    { id: 'inter', name: 'Inter Clean', cls: 'font-inter' },
+                    { id: 'mono', name: 'Mono Grid', cls: 'font-mono' }
+                  ].map(f => (
+                    <button
+                      id={`font-family-${f.id}`}
+                      key={f.id}
+                      onClick={() => setSettings(p => ({ ...p, fontFamily: f.id as any }))}
+                      className={`py-2 px-2 border rounded-lg text-xs font-semibold transition cursor-pointer ${
+                        settings.fontFamily === f.id
+                          ? 'bg-teal-50/70 border-teal-500 text-teal-900 ring-1 ring-teal-500/10 font-bold'
+                          : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-700'
+                      }`}
+                    >
+                      <span className={f.cls}>{f.name}</span>
+                    </button>
+                  ))
+                ) : (
+                  [
+                    { id: 'opendyslexic', name: 'OpenDyslexic', cls: 'font-opendyslexic font-normal text-[15px]' },
+                    { id: 'atkinson', name: 'Atkinson Legible', cls: 'font-atkinson font-semibold text-[14px]' }
+                  ].map(f => (
+                    <button
+                      id={`font-family-${f.id}`}
+                      key={f.id}
+                      onClick={() => setSettings(p => ({ ...p, fontFamily: f.id as any }))}
+                      className={`py-2 px-1 border rounded-lg transition cursor-pointer flex flex-col items-center justify-center text-center ${
+                        settings.fontFamily === f.id
+                          ? 'bg-teal-600 border-teal-600 text-white ring-1 ring-teal-500/10 shadow-xs'
+                          : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-700'
+                      }`}
+                    >
+                      <span className={`${f.cls} block leading-none mb-1`}>Abc</span>
+                      <span className="font-lexend block text-[9px] font-black tracking-tight">{f.name}</span>
+                    </button>
+                  ))
+                )}
+              </div>
+
+              {/* Informative description helper for Dyslexia Fonts */}
+              {isDyslexicGroupActive && (
+                <div className="bg-teal-50/40 border border-teal-100/50 rounded-xl p-2.5 text-[10px] text-teal-950 font-lexend space-y-1 mt-2">
+                  <span className="font-black text-teal-800 block uppercase tracking-wider">Why these fonts work:</span>
+                  {settings.fontFamily === 'opendyslexic' ? (
+                    <p className="font-medium text-slate-600 leading-normal">
+                      <strong>OpenDyslexic</strong> uses a high bottom-weight bias (weighted bottoms) to prevent letters from spinning, reflecting, or blending together.
+                    </p>
+                  ) : (
+                    <p className="font-medium text-slate-600 leading-normal">
+                      <strong>Atkinson Hyperlegible</strong> increases character distinction (e.g. differentiating 'l', '1', and 'I') so children don't mix up letter glyphs.
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Font Size Adjuster */}
