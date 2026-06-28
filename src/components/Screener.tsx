@@ -1347,7 +1347,7 @@ export default function Screener({
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-none font-lexend">
-                Let's play some quick games! 🎈
+                Enriching Every Child to Learn and Grow! 🌟
               </h1>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl font-lexend">
